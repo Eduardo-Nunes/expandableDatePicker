@@ -2,60 +2,38 @@ package com.nunes.eduardo.expandabledatepicker
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.drawable.Drawable
+import android.support.constraint.ConstraintLayout
 import android.text.TextPaint
 import android.util.AttributeSet
-import android.view.View
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.DecelerateInterpolator
+import android.view.animation.Interpolator
+
+/**
+ * Created by eduardonunes on 15/05/18.
+ */
 
 /**
  * TODO: document your custom view class.
  */
-class ExpandableDatePicker : View {
+class ExpandableDatePicker : ConstraintLayout {
 
-    private var _exampleString: String? = null // TODO: use a default from R.string...
-    private var _exampleColor: Int = Color.RED // TODO: use a default from R.color...
-    private var _exampleDimension: Float = 0f // TODO: use a default from R.dimen...
+    private var _isAnimating: Boolean = false
+    private var _isExpanded: Boolean = false
+    private var _targetHeight: Int = 0
+    private var _collapseMinHeight: Int = 0
+    private var _savedDuration: Int = 300
+    private var _interpolator: Interpolator = DecelerateInterpolator()
 
     private var textPaint: TextPaint? = null
     private var textWidth: Float = 0f
     private var textHeight: Float = 0f
 
-    /**
-     * The text to draw
-     */
-    var exampleString: String?
-        get() = _exampleString
+    var isExpanded: Boolean
+        get() = _isExpanded
         set(value) {
-            _exampleString = value
-            invalidateTextPaintAndMeasurements()
+            _isExpanded = value
         }
-
-    /**
-     * The font color
-     */
-    var exampleColor: Int
-        get() = _exampleColor
-        set(value) {
-            _exampleColor = value
-            invalidateTextPaintAndMeasurements()
-        }
-
-    /**
-     * In the example view, this dimension is the font size.
-     */
-    var exampleDimension: Float
-        get() = _exampleDimension
-        set(value) {
-            _exampleDimension = value
-            invalidateTextPaintAndMeasurements()
-        }
-
-    /**
-     * In the example view, this drawable is drawn above the text.
-     */
-    var exampleDrawable: Drawable? = null
 
     constructor(context: Context) : super(context) {
         init(null, 0)
@@ -71,73 +49,24 @@ class ExpandableDatePicker : View {
 
     private fun init(attrs: AttributeSet?, defStyle: Int) {
         // Load attributes
-        val a = context.obtainStyledAttributes(
+        val attributeSet = context.obtainStyledAttributes(
                 attrs, R.styleable.ExpandableDatePicker, defStyle, 0)
 
-        _exampleString = a.getString(
-                R.styleable.ExpandableDatePicker_exampleString)
-        _exampleColor = a.getColor(
-                R.styleable.ExpandableDatePicker_exampleColor,
-                exampleColor)
-        // Use getDimensionPixelSize or getDimensionPixelOffset when dealing with
-        // values that should fall on pixel boundaries.
-        _exampleDimension = a.getDimension(
-                R.styleable.ExpandableDatePicker_exampleDimension,
-                exampleDimension)
-
-        if (a.hasValue(R.styleable.ExpandableDatePicker_exampleDrawable)) {
-            exampleDrawable = a.getDrawable(
-                    R.styleable.ExpandableDatePicker_exampleDrawable)
-            exampleDrawable?.callback = this
+        _isExpanded = attributeSet.getBoolean(
+                R.styleable.ExpandableDatePicker_expand_isExpanded, _isExpanded)
+        _savedDuration = attributeSet.getInt(
+                R.styleable.ExpandableDatePicker_expand_duration,
+                _savedDuration)
+        _interpolator = when(attributeSet.getInt(R.styleable.ExpandableDatePicker_expand_interpolator, 2)){
+            1 -> AccelerateInterpolator()
+            2 -> DecelerateInterpolator()
+            else -> _interpolator
         }
-
-        a.recycle()
-
-        // Set up a default TextPaint object
-        textPaint = TextPaint().apply {
-            flags = Paint.ANTI_ALIAS_FLAG
-            textAlign = Paint.Align.LEFT
-        }
-
-        // Update TextPaint and text measurements from attributes
-        invalidateTextPaintAndMeasurements()
+        attributeSet.recycle()
     }
 
-    private fun invalidateTextPaintAndMeasurements() {
-        textPaint?.let {
-            it.textSize = exampleDimension
-            it.color = exampleColor
-            textWidth = it.measureText(exampleString)
-            textHeight = it.fontMetrics.bottom
-        }
-    }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-
-        // TODO: consider storing these as member variables to reduce
-        // allocations per draw cycle.
-        val paddingLeft = paddingLeft
-        val paddingTop = paddingTop
-        val paddingRight = paddingRight
-        val paddingBottom = paddingBottom
-
-        val contentWidth = width - paddingLeft - paddingRight
-        val contentHeight = height - paddingTop - paddingBottom
-
-        exampleString?.let {
-            // Draw the text.
-            canvas.drawText(it,
-                    paddingLeft + (contentWidth - textWidth) / 2,
-                    paddingTop + (contentHeight + textHeight) / 2,
-                    textPaint)
-        }
-
-        // Draw the example drawable on top of the text.
-        exampleDrawable?.let {
-            it.setBounds(paddingLeft, paddingTop,
-                    paddingLeft + contentWidth, paddingTop + contentHeight)
-            it.draw(canvas)
-        }
     }
 }

@@ -2,7 +2,6 @@
     <declare-styleable name="ExpandableDatePicker">
         <attr name="expand_isExpanded" format="boolean" />
         <attr name="expand_duration" format="integer" />
-        <attr name="collapse_min_height" format="dimension" />
         <attr name="expand_interpolator" format="enum">
             <enum name="accelerate" value="1"/>
             <enum name="decelerate" value="2"/>
