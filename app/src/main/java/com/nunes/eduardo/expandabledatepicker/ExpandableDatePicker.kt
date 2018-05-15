@@ -2,7 +2,6 @@ package com.nunes.eduardo.expandabledatepicker
 
 import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.Canvas
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import android.view.View
@@ -32,12 +31,6 @@ class ExpandableDatePicker : ConstraintLayout {
         get() = _isExpanded
         set(value) {
             _isExpanded = value
-        }
-
-    var isAnimating: Boolean
-        get() = _isAnimating
-        set(value) {
-            _isAnimating = value
         }
 
     constructor(context: Context) : super(context) {
@@ -153,7 +146,7 @@ class ExpandableDatePicker : ConstraintLayout {
             override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
                 val newHeight = if (interpolatedTime == 1f) {
                     visibility = GONE
-                    isAnimating = false
+                    _isAnimating = false
                     isExpanded = false
                     ZERO_HEIGHT
                 } else {
@@ -182,7 +175,7 @@ class ExpandableDatePicker : ConstraintLayout {
             valueAnimator.start()
         }
 
-        isAnimating = true
+        _isAnimating = true
 
     }
 }

@@ -13,9 +13,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initListeners() {
-        expandCollapseDate.setOnClickListener {
-            expandableDatePicker.toggle(it)
-        }
+        toolbar.setHomeAsUp(this)
     }
 
     private fun initViews() {

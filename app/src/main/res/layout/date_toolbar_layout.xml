@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:minHeight="?attr/actionBarSize">
+
+    <LinearLayout
+        android:id="@+id/dateLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="?attr/selectableItemBackground">
+        <TextView
+            android:id="@+id/dateTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="20 de Abril"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <ImageButton
+            android:id="@+id/expandCollapseDate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_expand_more" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/homeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:padding="16dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:srcCompat="?android:attr/homeAsUpIndicator"
+        android:background="?attr/selectableItemBackground" />
+
+    <com.nunes.eduardo.expandabledatepicker.ExpandableDatePicker
+        android:id="@+id/expandableDatePicker"
+        app:collapse_min_height="0dp"
+        app:expand_duration="500"
+        app:expand_interpolator="decelerate"
+        app:expand_isExpanded="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dateLayout">
+
+        <DatePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </DatePicker>
+    </com.nunes.eduardo.expandabledatepicker.ExpandableDatePicker>
+
+</RelativeLayout>

@@ -1,48 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <android.support.v7.widget.Toolbar
+    <com.nunes.eduardo.expandabledatepicker.ToolbarDatePicker
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="0dp" >
-
-        <ImageButton
-            android:id="@+id/expandCollapseDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:layout_gravity="end|top"
-            android:src="@android:drawable/arrow_down_float"
-            android:background="@android:color/transparent"/>
-
-        <com.nunes.eduardo.expandabledatepicker.ExpandableDatePicker
-            android:id="@+id/expandableDatePicker"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:expand_isExpanded="false"
-            app:collapse_min_height="0dp"
-            app:expand_duration="500"
-            app:expand_interpolator="accelerate">
-
-            <DatePicker
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-            </DatePicker>
-        </com.nunes.eduardo.expandabledatepicker.ExpandableDatePicker>
-
-    </android.support.v7.widget.Toolbar>
-
+        app:contentInsetStartWithNavigation="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:theme="?attr/actionBarTheme"/>
 
 </LinearLayout>
