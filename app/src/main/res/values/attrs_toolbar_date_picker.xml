@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="ToolbarDatePicker">
+        <attr name="toolbarBackgroundColor" format="color"/>
+        <attr name="toolbarContentColor" format="color"/>
+    </declare-styleable>
+</resources>
