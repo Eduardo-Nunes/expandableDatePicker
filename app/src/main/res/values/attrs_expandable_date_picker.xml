@@ -1,8 +1,11 @@
 <resources>
     <declare-styleable name="ExpandableDatePicker">
-        <attr name="exampleString" format="string" />
-        <attr name="exampleDimension" format="dimension" />
-        <attr name="exampleColor" format="color" />
-        <attr name="exampleDrawable" format="color|reference" />
+        <attr name="expand_isExpanded" format="boolean" />
+        <attr name="expand_duration" format="integer" />
+        <attr name="collapse_min_height" format="dimension" />
+        <attr name="expand_interpolator" format="enum">
+            <enum name="accelerate" value="1"/>
+            <enum name="decelerate" value="2"/>
+        </attr>
     </declare-styleable>
 </resources>
