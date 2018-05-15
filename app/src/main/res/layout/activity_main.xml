@@ -15,15 +15,34 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteY="0dp" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageButton
+            android:id="@+id/expandCollapseDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:layout_gravity="end|top"
+            android:src="@android:drawable/arrow_down_float"
+            android:background="@android:color/transparent"/>
+
+        <com.nunes.eduardo.expandabledatepicker.ExpandableDatePicker
+            android:id="@+id/expandableDatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:expand_isExpanded="false"
+            app:collapse_min_height="0dp"
+            app:expand_duration="500"
+            app:expand_interpolator="accelerate">
+
+            <DatePicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </DatePicker>
+        </com.nunes.eduardo.expandabledatepicker.ExpandableDatePicker>
+
+    </android.support.v7.widget.Toolbar>
+
 
 </LinearLayout>

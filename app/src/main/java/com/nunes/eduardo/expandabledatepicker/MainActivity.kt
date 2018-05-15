@@ -9,6 +9,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initViews()
+        initListeners()
+    }
+
+    private fun initListeners() {
+        expandCollapseDate.setOnClickListener {
+            expandableDatePicker.toggle(it)
+        }
     }
 
     private fun initViews() {

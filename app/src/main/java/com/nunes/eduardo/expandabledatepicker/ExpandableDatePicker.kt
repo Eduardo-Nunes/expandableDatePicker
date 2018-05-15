@@ -1,13 +1,13 @@
 package com.nunes.eduardo.expandabledatepicker
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.support.constraint.ConstraintLayout
-import android.text.TextPaint
 import android.util.AttributeSet
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.DecelerateInterpolator
-import android.view.animation.Interpolator
+import android.view.View
+import android.view.ViewGroup
+import android.view.animation.*
 
 /**
  * Created by eduardonunes on 15/05/18.
@@ -16,18 +16,17 @@ import android.view.animation.Interpolator
 /**
  * TODO: document your custom view class.
  */
+
+const val ZERO_HEIGHT: Int = 0
+const val MINIMIUM_HEIGHT: Int = 1
+
 class ExpandableDatePicker : ConstraintLayout {
 
     private var _isAnimating: Boolean = false
     private var _isExpanded: Boolean = false
     private var _targetHeight: Int = 0
-    private var _collapseMinHeight: Int = 0
     private var _savedDuration: Int = 300
     private var _interpolator: Interpolator = DecelerateInterpolator()
-
-    private var textPaint: TextPaint? = null
-    private var textWidth: Float = 0f
-    private var textHeight: Float = 0f
 
     var isExpanded: Boolean
         get() = _isExpanded
@@ -35,22 +34,40 @@ class ExpandableDatePicker : ConstraintLayout {
             _isExpanded = value
         }
 
+    var isAnimating: Boolean
+        get() = _isAnimating
+        set(value) {
+            _isAnimating = value
+        }
+
     constructor(context: Context) : super(context) {
-        init(null, 0)
+        initView(context, null)
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init(attrs, 0)
+        initView(context, attrs)
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
-        init(attrs, defStyle)
+        initView(context, attrs)
     }
 
-    private fun init(attrs: AttributeSet?, defStyle: Int) {
+    private fun initView(context: Context, attrs: AttributeSet?) {
+        if (isInEditMode) return
+
+        attrs?.let {
+            initAttrs(context, it)
+        }
+
+        if (!_isExpanded) {
+            collapse(null)
+        }
+    }
+
+    private fun initAttrs(context: Context, attrs: AttributeSet?) {
         // Load attributes
         val attributeSet = context.obtainStyledAttributes(
-                attrs, R.styleable.ExpandableDatePicker, defStyle, 0)
+                attrs, R.styleable.ExpandableDatePicker)
 
         _isExpanded = attributeSet.getBoolean(
                 R.styleable.ExpandableDatePicker_expand_isExpanded, _isExpanded)
@@ -65,8 +82,107 @@ class ExpandableDatePicker : ConstraintLayout {
         attributeSet.recycle()
     }
 
+    fun toggle(rotatingViews: View) {
+        if (isExpanded) {
+            collapse(rotatingViews)
+        } else {
+            expand(rotatingViews)
+        }
+    }
 
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
+    private fun expand(rotatingViews: View?) {
+        if (_isAnimating) return
+
+        if (_targetHeight == ZERO_HEIGHT) {
+            measure(
+                    MeasureSpec.makeMeasureSpec((parent as View).width, MeasureSpec.EXACTLY),
+                    MeasureSpec.makeMeasureSpec(ZERO_HEIGHT, MeasureSpec.UNSPECIFIED)
+            )
+            _targetHeight = measuredHeight
+        }
+
+        // Older versions of android (pre API 21) cancel animations for views with a verticalBlank of 0 so use 1 instead.
+        layoutParams.height = MINIMIUM_HEIGHT
+        visibility = VISIBLE
+
+
+        val animation = object : Animation() {
+            override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
+                val newHeight =
+                        if (interpolatedTime == 1f) {
+                            _isExpanded = true
+                            _isAnimating = false
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        } else {
+                            (_targetHeight * interpolatedTime).toInt()
+                        }
+
+                layoutParams.height = newHeight
+
+                requestLayout()
+            }
+
+            override fun willChangeBounds(): Boolean = false
+        }
+        animation.interpolator = _interpolator
+        animation.duration = _savedDuration.toLong()
+        startAnimation(animation)
+
+        rotatingViews?.let { view ->
+            val valueAnimator = ValueAnimator.ofFloat(0f, 180f)
+            valueAnimator.addUpdateListener {
+                view.rotationX = it.animatedValue as Float
+            }
+
+            valueAnimator.interpolator = LinearInterpolator()
+            valueAnimator.duration = _savedDuration.toLong()
+            valueAnimator.start()
+        }
+
+        _isAnimating = true
+    }
+
+    private fun collapse(rotatingViews: View?) {
+        if (_isAnimating) return
+
+        if (_targetHeight == ZERO_HEIGHT) {
+            _targetHeight = measuredHeight
+        }
+
+        val animation = object : Animation() {
+            override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
+                val newHeight = if (interpolatedTime == 1f) {
+                    visibility = GONE
+                    isAnimating = false
+                    isExpanded = false
+                    ZERO_HEIGHT
+                } else {
+                    ((_targetHeight) - (_targetHeight * interpolatedTime).toInt())
+                }
+
+                layoutParams.height = newHeight
+
+                requestLayout()
+            }
+
+            override fun willChangeBounds(): Boolean = true
+        }
+        animation.interpolator = _interpolator
+        animation.duration = _savedDuration.toLong()
+        startAnimation(animation)
+
+        rotatingViews?.let { view ->
+            val valueAnimator = ValueAnimator.ofFloat(180f, 360f)
+            valueAnimator.addUpdateListener {
+                view.rotationX = it.animatedValue as Float
+            }
+
+            valueAnimator.interpolator = LinearInterpolator()
+            valueAnimator.duration = _savedDuration.toLong()
+            valueAnimator.start()
+        }
+
+        isAnimating = true
+
     }
 }
