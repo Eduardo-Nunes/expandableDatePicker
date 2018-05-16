@@ -1,5 +1,6 @@
 package com.nunes.eduardo.expandabledatepicker
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -32,6 +33,7 @@ class ToolbarDatePicker : Toolbar {
         init(attrs, defStyle)
     }
 
+    @SuppressLint("PrivateResource")
     private fun init(attrs: AttributeSet?, defStyle: Int) {
         // Load attributes
         val attributeSet = context.obtainStyledAttributes(

@@ -18,7 +18,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="20 de Abril"
             android:textAlignment="center"
             android:textSize="20sp" />
 
@@ -27,7 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_expand_more" />
+            android:src="@drawable/ic_expand_more"
+            android:contentDescription="@string/expand_and_collapse_date_picker" />
     </LinearLayout>
 
     <ImageButton
@@ -38,7 +38,8 @@
         android:visibility="gone"
         tools:visibility="visible"
         app:srcCompat="?android:attr/homeAsUpIndicator"
-        android:background="?attr/selectableItemBackground" />
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="@string/back_button" />
 
     <com.nunes.eduardo.expandabledatepicker.ExpandableDatePicker
         android:id="@+id/expandableDatePicker"
