@@ -3,4 +3,6 @@
     <string name="concateneted_date_text">%1$s de %2$s</string>
     <string name="expand_and_collapse_date_picker">expand and collapse date picker</string>
     <string name="back_button">back button</string>
+    <string name="language">pt</string>
+    <string name="country">BR</string>
 </resources>
