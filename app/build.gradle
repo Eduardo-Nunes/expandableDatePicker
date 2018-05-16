@@ -22,12 +22,24 @@ android {
     }
 }
 
+ext {
+    appcompat_version = '27.1.1'
+    constraint_version = '1.1.0'
+    junit_version = '4.12'
+    runner_version = '1.0.2'
+    espresso_version = '3.0.2'
+    joda_version = '2.9.9.4'
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation "com.android.support:appcompat-v7:$appcompat_version"
+    implementation "com.android.support.constraint:constraint-layout:$constraint_version"
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "com.android.support.test:runner:$runner_version"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
+    // JodaTime
+    implementation "net.danlew:android.joda:$joda_version"
+
 }
