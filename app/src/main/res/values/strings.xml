@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">expandableDatePicker</string>
+    <string name="concateneted_date_text">%1$s de %2$s</string>
 </resources>
