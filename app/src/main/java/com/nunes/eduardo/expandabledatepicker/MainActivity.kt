@@ -9,15 +9,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initViews()
-        initListeners()
     }
 
-    private fun initListeners() {
-        toolbar.setHomeAsUp(this)
-    }
 
     private fun initViews() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        toolbar.setHomeAsUp(this)
     }
 }
