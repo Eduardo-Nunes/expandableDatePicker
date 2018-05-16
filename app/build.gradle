@@ -29,6 +29,7 @@ ext {
     runner_version = '1.0.2'
     espresso_version = '3.0.2'
     joda_version = '2.9.9.4'
+    recycler_view_version = '27.1.1'
 }
 
 dependencies {
@@ -42,4 +43,5 @@ dependencies {
     // JodaTime
     implementation "net.danlew:android.joda:$joda_version"
 
+    implementation "com.android.support:recyclerview-v7:$recycler_view_version"
 }
