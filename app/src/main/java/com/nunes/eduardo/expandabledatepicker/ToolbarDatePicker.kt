@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.AttributeSet
 import kotlinx.android.synthetic.main.date_toolbar_layout.view.*
-import java.util.*
 
 /**
  * TODO: document your custom view class.
