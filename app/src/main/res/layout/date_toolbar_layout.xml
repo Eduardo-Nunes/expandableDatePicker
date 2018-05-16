@@ -52,19 +52,13 @@
         app:expand_interpolator="decelerate"
         app:expand_isExpanded="false">
 
-        <!--<DatePicker-->
-        <!--android:id="@+id/datePicker"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--app:layout_constraintTop_toBottomOf="@id/list_item">-->
-
-        <!--</DatePicker>-->
         <android.support.v7.widget.RecyclerView
             android:id="@+id/weekDaysList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/darker_gray"
+            android:background="@color/grey_700"
             android:orientation="horizontal"
+            android:clipToPadding="false"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             tools:listitem="@layout/week_day_picker_item" />
     </com.nunes.eduardo.expandabledatepicker.ExpandableDatePicker>

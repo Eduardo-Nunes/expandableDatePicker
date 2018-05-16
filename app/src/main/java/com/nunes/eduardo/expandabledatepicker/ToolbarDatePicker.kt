@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.Toolbar
 import android.util.AttributeSet
 import kotlinx.android.synthetic.main.date_toolbar_layout.view.*
@@ -73,8 +74,10 @@ class ToolbarDatePicker : Toolbar {
         _date = DateTime.now()
         dateTitle.text = retrieveHumanDate(_date)
 
-//        datePicker.maxDate = _date.plusDays(_dateRange).millis
-//        datePicker.minDate = _date.minusDays(_dateRange).millis
+        weekDaysList.layoutManager = GridLayoutManager(context, (_dateRange * 2) + 1)
+
+        val itemDecoration = ItemOffsetDecoration(context, R.dimen.item_offset)
+        weekDaysList.addItemDecoration(itemDecoration)
 
         weekDaysList.adapter = WeekDaysListAdapter(prepareDates(_date, _dateRange), { setDateClicked(it) })
     }
@@ -89,16 +92,6 @@ class ToolbarDatePicker : Toolbar {
             expandableDatePicker.toggle(expandCollapseDate)
         }
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            datePicker.setOnDateChangedListener { _, year, monthOfYear, dayOfMonth ->
-//                setDateClicked(DateTime().withDate(year, monthOfYear, dayOfMonth))
-//            }
-//        }else{
-//            datePicker.init(_date.year, _date.monthOfYear, _date.dayOfMonth,
-//                    { _, year, monthOfYear, dayOfMonth ->
-//                        setDateClicked(DateTime().withDate(year, monthOfYear, dayOfMonth))
-//                    })
-//        }
     }
 
     private fun setDateClicked(date: DateTime){

@@ -8,7 +8,6 @@ import kotlinx.android.synthetic.main.week_day_picker_item.view.*
 import org.joda.time.DateTime
 import java.util.*
 
-
 class WeekDaysListAdapter(
         private val items: ArrayList<DateTime>,
         private val onClickListener: (DateTime) -> Unit)
@@ -35,5 +34,4 @@ class WeekDaysListAdapter(
             }
         }
     }
-
 }
