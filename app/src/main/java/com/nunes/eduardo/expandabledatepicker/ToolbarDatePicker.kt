@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.AttributeSet
 import kotlinx.android.synthetic.main.date_toolbar_layout.view.*
+import java.util.*
 
 /**
  * TODO: document your custom view class.
@@ -36,16 +37,23 @@ class ToolbarDatePicker : Toolbar {
                 ContextCompat.getColor(context, R.color.background_material_dark))
         _contentColor = attributeSet.getColor(R.styleable.ToolbarDatePicker_toolbarContentColor,
                 ContextCompat.getColor(context, R.color.background_material_light))
-
-        setBackgroundColor(_backgroundColor)
-
         attributeSet.recycle()
+
+        initViews()
+        initData()
+        initListeners()
+    }
+
+    private fun initViews() {
+        setBackgroundColor(_backgroundColor)
 
         inflate(context, R.layout.date_toolbar_layout, this)
 
         setContentColor()
+    }
 
-        initListeners()
+    private fun initData() {
+//        TODO(date logic)
     }
 
     private fun initListeners() {
