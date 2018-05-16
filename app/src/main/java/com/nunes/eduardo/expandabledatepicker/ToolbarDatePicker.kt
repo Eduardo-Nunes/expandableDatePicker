@@ -1,14 +1,10 @@
 package com.nunes.eduardo.expandabledatepicker
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.ColorFilter
-import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.AttributeSet
-import android.view.View
 import kotlinx.android.synthetic.main.date_toolbar_layout.view.*
 
 /**
@@ -37,9 +33,9 @@ class ToolbarDatePicker : Toolbar {
                 attrs, R.styleable.ToolbarDatePicker, defStyle, 0)
 
         _backgroundColor = attributeSet.getColor(R.styleable.ToolbarDatePicker_toolbarBackgroundColor,
-                ContextCompat.getColor(context, R.color.material_grey_900))
+                ContextCompat.getColor(context, R.color.background_material_dark))
         _contentColor = attributeSet.getColor(R.styleable.ToolbarDatePicker_toolbarContentColor,
-                ContextCompat.getColor(context, R.color.material_grey_100))
+                ContextCompat.getColor(context, R.color.background_material_light))
 
         setBackgroundColor(_backgroundColor)
 
