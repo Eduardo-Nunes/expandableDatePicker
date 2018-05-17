@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/dateLayout"
         app:collapse_min_height="0dp"
-        app:expand_duration="500"
+        app:expand_duration="375"
         app:expand_interpolator="decelerate"
         app:expand_isExpanded="false">
 
