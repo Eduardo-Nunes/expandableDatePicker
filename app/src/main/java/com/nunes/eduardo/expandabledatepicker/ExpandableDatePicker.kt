@@ -9,10 +9,6 @@ import android.view.ViewGroup
 import android.view.animation.*
 
 /**
- * Created by eduardonunes on 15/05/18.
- */
-
-/**
  * TODO: document your custom view class.
  */
 
