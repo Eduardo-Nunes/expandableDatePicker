@@ -15,7 +15,13 @@ import java.util.*
 /**
  * TODO: document your custom view class.
  */
+const val DOUBLE_OFF: Int = 2
+const val PLUS_ONE: Int = 1
+const val NEGATIVE_NUMBER: Int = -1
+const val DEFAULT_DEF_STYLE: Int = 0
 const val HUMAN_DATE_PATTERN: String = "dd MMMMM"
+const val FISRT_POSITION: Int = 0
+const val SECOND_POSITION: Int = 1
 class ToolbarDatePicker : Toolbar {
 
     private var _backgroundColor: Int = 0
@@ -31,11 +37,11 @@ class ToolbarDatePicker : Toolbar {
         }
 
     constructor(context: Context) : super(context) {
-        init(null, 0)
+        init(null, DEFAULT_DEF_STYLE)
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init(attrs, 0)
+        init(attrs, DEFAULT_DEF_STYLE)
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
@@ -46,7 +52,7 @@ class ToolbarDatePicker : Toolbar {
     private fun init(attrs: AttributeSet?, defStyle: Int) {
         // Load attributes
         val attributeSet = context.obtainStyledAttributes(
-                attrs, R.styleable.ToolbarDatePicker, defStyle, 0)
+                attrs, R.styleable.ToolbarDatePicker, defStyle, DEFAULT_DEF_STYLE)
 
         _backgroundColor = attributeSet.getColor(R.styleable.ToolbarDatePicker_toolbarBackgroundColor,
                 ContextCompat.getColor(context, R.color.background_material_dark))
@@ -74,7 +80,7 @@ class ToolbarDatePicker : Toolbar {
         _date = DateTime.now()
         dateTitle.text = retrieveHumanDate(_date)
 
-        weekDaysList.layoutManager = GridLayoutManager(context, (_dateRange * 2) + 1)
+        weekDaysList.layoutManager = GridLayoutManager(context, (_dateRange * DOUBLE_OFF) + PLUS_ONE)
 
         val itemDecoration = ItemOffsetDecoration(context, R.dimen.item_offset)
         weekDaysList.addItemDecoration(itemDecoration)
@@ -114,13 +120,13 @@ class ToolbarDatePicker : Toolbar {
                 .toUpperCase()
                 .split(' ')
 
-        return context.getString(R.string.concateneted_date_text, dateString[0], dateString[1])
+        return context.getString(R.string.concateneted_date_text, dateString[FISRT_POSITION], dateString[SECOND_POSITION])
     }
 
     private fun prepareDates(initialDate: DateTime, rangeDays: Int): ArrayList<DateTime> {
         val dateList: ArrayList<DateTime> = arrayListOf()
 
-        for (i in (rangeDays * -1)..rangeDays) {
+        for (i in (rangeDays * NEGATIVE_NUMBER)..rangeDays) {
             dateList.add(initialDate.plusDays(i))
         }
 
